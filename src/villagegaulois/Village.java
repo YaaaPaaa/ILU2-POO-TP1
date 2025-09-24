@@ -36,11 +36,42 @@ public class Village {
 		 }
 		 
 		 Etal[] trouverEtals(String produit) {
+			 int nbEtalTrouver = 0;
+			 for(int i = 0; i < etals.length;i++) {
+				 if (etals[i].isEtalOccupe() && etals[i].contientProduit(produit)) {
+					 nbEtalTrouver++;
+				 }
+			 }
 			 
+			 Etal[] etalsAvecProduit;
+			 etalsAvecProduit = new Etal[nbEtalTrouver];
+			 int indiceEtalProduit = 0;
 			 
-			 return etals;
+			 for(int j = 0; j < etals.length;j++) {
+				 if (etals[j].isEtalOccupe() && etals[j].contientProduit(produit)) {
+					 etalsAvecProduit[indiceEtalProduit] = etals[j];
+					 indiceEtalProduit++;
+				 }
+			 }
+			 return etalsAvecProduit;
 		 }
 		 
+		 Etal trouverVendeur(Gaulois gaulois){
+			 for(int i = 0; i < etals.length;i++) {
+				 if (etals[i].isEtalOccupe() && etals[i].getVendeur() == gaulois) {
+					 return etals[i];
+				 }
+			 }
+			 return null;
+		 }
+		 
+		 void afficherMarche(){
+			 int nbEtalVide = 0;
+			 for(int i = 0; i < etals.length;i++) {
+				 if (etals[i].isEtalOccupe()) {
+					 etals[i].afficherEtal();
+				 }
+		 }
 	}
 
 	public String getNom() {
@@ -78,7 +109,7 @@ public class Village {
 					+ chef.getNom() + ".\n");
 		} else {
 			chaine.append("Au village du chef " + chef.getNom()
-					+ " vivent les lÃ©gendaires gaulois :\n");
+					+ " vivent les légendaires gaulois :\n");
 			for (int i = 0; i < nbVillageois; i++) {
 				chaine.append("- " + villageois[i].getNom() + "\n");
 			}
